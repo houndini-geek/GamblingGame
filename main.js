@@ -16,6 +16,24 @@ document.getElementById("startGameBtn").addEventListener("click", () => {
   gamblingSound.play().catch(() => {});
   gamblingSound.pause(); // Immediately pause if needed
   
+  //Unlock all sounds and pause them
+  const sounds = [
+    gamblingSound,
+    resultSound,
+    coinDonationSoud,
+    winSequence,
+    slotMachinePayout,
+    smallGroupCheerSound,
+    humanPainSound,
+    lostSequence,
+
+  ];
+  sounds.forEach((sound) => {
+    sound.play().catch(() => {}); // Attempt to play the sound
+    sound.pause(); // Immediately pause if needed
+    
+  });
+
   // Remove the intro screen
   document.getElementById("startScreen").style.display = "none";
 });
