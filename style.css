@@ -1,0 +1,102 @@
+*,::after,::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: min(100%,1000px);
+    min-height: 100vh;
+    margin: 0 auto;
+
+}
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    width: min(100%,1000px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-transform: capitalize;
+    padding: 0.5em;
+}
+
+.container {
+    width: 100%;
+    margin: 10% auto 0;
+    display: grid;
+    grid-template-columns: repeat(3,8em);
+   justify-content: center;
+   grid-gap: 0.4em;
+   padding: 1em;
+}
+
+.container .box {
+    height: 8rem;
+    border: 1px groove rgba(182,185,190,0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 0.3em;
+    transition: 0.3s ease;
+    overflow: hidden;
+
+}
+.box.invalid{
+   background-color: rgba(205, 205, 205, 0.495);
+    cursor: not-allowed;
+    pointer-events: none;
+}
+.box.selected {
+
+    background-color: rgb(0, 98, 82);
+    color: #F2F2F2;
+}
+
+.box.shuffling {
+    background-color: rgb(5, 230, 144);
+    color: #F2F2F2;
+}
+
+.box.selected span {
+    transform: translateY(-0.5em);
+}
+
+
+.box:hover span {
+
+    transform: translateY(-0.5em);
+    transition: 0.3s ease;
+}
+.box span {
+    font-size: 3em;
+    transition: 0.3s ease;
+}
+
+
+.startGambling {
+
+    display: block;
+    margin: 10% auto ;
+    padding: 1.3em 2em;
+    text-transform: capitalize;
+    background-color: rgba(80, 0, 155, 0.998);
+    border: 1px outset #f2f2f2;
+    color: #F4F4F4;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+}
+
+.startGambling:disabled {
+    background-color: rgba(168, 168, 168, 0.797);
+    cursor: not-allowed;
+}
