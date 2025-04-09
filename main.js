@@ -14,6 +14,15 @@ document.getElementById("startGameBtn").addEventListener("click", () => {
   // Unlock all sounds
   casinoAmbiance.play().catch(() => {});
   gamblingSound.play().catch(() => {});
+  resultSound.play().catch(() => {});
+  winSequence.play().catch(() => {});
+  lostSequence.play().catch(() => {});
+  smallGroupCheerSound.play().catch(() => {});
+  humanPainSound.play().catch(() => {});
+  slotMachinePayout.play().catch(() => {});
+  coinDonationSoud.play().catch(() => {});
+  // Play casino ambiance sound
+  
   gamblingSound.pause(); // Immediately pause if needed
   
   // Remove the intro screen
