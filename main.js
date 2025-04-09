@@ -139,8 +139,7 @@ function handleClick(boxId, index) {
   const cash = Number(localStorage.getItem("cash"));
   const betItem = gameblingObj.find((item) => item.id === boxId);
   const alreadyBet = getPlayerBets.find((b) => b.id === boxId);
-  // When placing bets
-  coinDonationSoud.src = "Slot-machine-sound/coin-donation-2-180438.mp3";
+  coinDonationSoud.currentTime = 0; // Reset sound to start
   coinDonationSoud.play();
   if (alreadyBet) {
     removeBet(boxId, index);
@@ -293,23 +292,34 @@ resetCashBtn.addEventListener("click", () => {
 function loadSounds() {
   // Casino Ambiance sounds
   casinoAmbiance.src = "Slot-machine-sound/casino-ambiance-19130.mp3";
+  casinoAmbiance.load(); // Load the sound
+
+   // When placing bets
+   coinDonationSoud.src = "Slot-machine-sound/coin-donation-2-180438.mp3";
+   coinDonationSoud.load(); // Load the sound
+
   // Play win sequence
   winSequence.src = "Slot-machine-sound/you-win-sequence-2-183949.mp3";
   slotMachinePayout.src =
     "Slot-machine-sound/slot-machine-coin-payout-1-188227.mp3";
+  slotMachinePayout.load(); // Load the sound
 
   // Play lost sequence
   lostSequence.src =
     "Slot-machine-sound/playful-casino-slot-machine-bonus-2-183919.mp3";
   humanPainSound.src =
     "Slot-machine-sound/mixkit-human-fighter-pain-scream-2768.wav";
+  humanPainSound.load(); // Load the sound
 
   smallGroupCheerSound.src =
     "Slot-machine-sound/mixkit-small-group-cheer-and-applause-518.wav";
+  smallGroupCheerSound.load(); // Load the sound
 
   gamblingSound.src = "Slot-machine-sound/slot-machine-reels-sound-30276.mp3";
   gamblingSound.currentTime = 3;
+  gamblingSound.load(); // Load the sound
 
   resultSound.src =
     "Slot-machine-sound/playful-casino-slot-machine-bonus-2-183919.mp3";
+  resultSound.load(); // Load the sound
 }
