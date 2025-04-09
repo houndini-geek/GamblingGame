@@ -7,47 +7,68 @@ const gameblingObj = [
   { id: "item-6", icon: "🛴", value: 10 },
 ];
 
-const gamblingSound = new Audio()
-const resultSound = new Audio()
-
-const coinDonationSoud = new Audio()
-const casinoAmbiance = new Audio()
-
-const winSequence = new Audio()
-const slotMachinePayout = new Audio()
-const smallGroupCheerSound = new Audio()
-
-const humanPainSound = new Audio()
-
-const lostSequence = new Audio()
-
-document.addEventListener("DOMContentLoaded",() => {
-
-  loadSounds()
-
-})
 
 
-function playCasinoAudiance(){
-  //Auto play casino ambiance sound \ Notice if auto play failed 
+// In your JS
+document.getElementById("startGameBtn").addEventListener("click", () => {
+  // Unlock all sounds
+  casinoAmbiance.play().catch(() => {});
+  gamblingSound.play().catch(() => {});
+  gamblingSound.pause(); // Immediately pause if needed
+  
+  // Remove the intro screen
+  document.getElementById("startScreen").style.display = "none";
+});
+
+
+
+
+
+
+
+
+
+
+
+
+const gamblingSound = new Audio();
+const resultSound = new Audio();
+
+const coinDonationSoud = new Audio();
+const casinoAmbiance = new Audio();
+
+const winSequence = new Audio();
+const slotMachinePayout = new Audio();
+const smallGroupCheerSound = new Audio();
+
+const humanPainSound = new Audio();
+
+const lostSequence = new Audio();
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadSounds();
+});
+
+function playCasinoAudiance() {
+  //Auto play casino ambiance sound \ Notice if auto play failed
   // user interaction is required to play the sound
-  casinoAmbiance.play()
-  .then(() => {
-    console.log("Casino ambiance sound is playing.");
-  })
-  .catch((error) => {
-    console.log("Auto play failed. User interaction may be required to play the sound.");
-    console.error(error);
-  });
+  casinoAmbiance
+    .play()
+    .then(() => {
+      console.log("Casino ambiance sound is playing.");
+    })
+    .catch((error) => {
+      console.log(
+        "Auto play failed. User interaction may be required to play the sound."
+      );
+      console.error(error);
+    });
   // Loop the sound
-  casinoAmbiance.loop = true
+  casinoAmbiance.loop = true;
   // Set volume
-  casinoAmbiance.volume = 0.2
-  // Set playback rate  
-
+  casinoAmbiance.volume = 0.2;
+  // Set playback rate
 }
-
-playCasinoAudiance()
 
 // Initialize cash if not present
 if (!localStorage.getItem("cash")) localStorage.setItem("cash", "100");
@@ -58,7 +79,8 @@ const displayPlayerCash = document.querySelector(".cash");
 const container = document.querySelector(".container");
 const startGambling = document.querySelector(".startGambling");
 const gamblingAgain = document.querySelector(".gamblingAgain");
-
+const resetCashBtn = document.querySelector(".resetCash");
+const feedbackWrapper = document.querySelector(".feedback-wrapper");
 let getPlayerBets = JSON.parse(localStorage.getItem("player-bets")) || [];
 
 // Display bot and player cash
@@ -99,7 +121,9 @@ function handleClick(boxId, index) {
   const cash = Number(localStorage.getItem("cash"));
   const betItem = gameblingObj.find((item) => item.id === boxId);
   const alreadyBet = getPlayerBets.find((b) => b.id === boxId);
-
+  // When placing bets
+  coinDonationSoud.src = "Slot-machine-sound/coin-donation-2-180438.mp3";
+  coinDonationSoud.play();
   if (alreadyBet) {
     removeBet(boxId, index);
     return;
@@ -111,10 +135,12 @@ function handleClick(boxId, index) {
     localStorage.setItem("cash", String(cash - betItem.value));
     allBoxes[index].classList.add("selected");
     startGambling.removeAttribute("disabled");
-    coinDonationSoud.play()
+    feedbackWrapper.style.display = "none";
     displayCash();
   } else {
     console.warn("Not enough cash to bet.");
+    coinDonationSoud.pause();
+    feedbackWrapper.style.display = "block";
   }
 }
 
@@ -126,7 +152,7 @@ function removeBet(betId, index) {
   localStorage.setItem("player-bets", JSON.stringify(getPlayerBets));
   localStorage.setItem("cash", String(cash + betItem.value));
   allBoxes[index].classList.remove("selected");
-
+  feedbackWrapper.style.display = "none";
   if (!getPlayerBets.length) startGambling.setAttribute("disabled", true);
   displayCash();
 }
@@ -147,32 +173,32 @@ function startGamblingGame() {
   }, 200);
 }
 
-
-
-
-function playSound(){
-  gamblingSound.setAttribute('src',
-    "Slot-machine-sound/slot-machine-reels-sound-30276.mp3")
-    gamblingSound.currentTime = 3
-    gamblingSound.play()
+function playSound() {
+  gamblingSound.setAttribute(
+    "src",
+    "Slot-machine-sound/slot-machine-reels-sound-30276.mp3"
+  );
+  gamblingSound.currentTime = 3;
+  gamblingSound.play();
 }
 
-function playFinanSound(){
-  resultSound.setAttribute('src',
-    "Slot-machine-sound/playful-casino-slot-machine-bonus-2-183919.mp3")
+function playFinanSound() {
+  resultSound.setAttribute(
+    "src",
+    "Slot-machine-sound/playful-casino-slot-machine-bonus-2-183919.mp3"
+  );
 
-    resultSound.play()
+  resultSound.play();
 }
 
-
-function stopSound(){
-  gamblingSound.pause()
+function stopSound() {
+  gamblingSound.pause();
 }
 
 // Handle gambling start button
 startGambling.addEventListener("click", () => {
-  playSound()
- 
+  playSound();
+
   allBoxes.forEach((b) => b.classList.add("invalid"));
   startGamblingGame();
 
@@ -182,46 +208,45 @@ startGambling.addEventListener("click", () => {
   }, 7000);
 });
 
-
 // Handle retry
 gamblingAgain.addEventListener("click", () => {
   localStorage.removeItem("player-bets");
   location.reload();
 });
-
-// Check for win or lose
 function checkWin(itemId) {
-  stopSound()
-  playFinanSound()
+  stopSound();
+  playFinanSound();
+
   const betMatch = getPlayerBets.find((b) => b.id === itemId);
   let playerCash = Number(localStorage.getItem("cash"));
   let botCash = Number(localStorage.getItem("bot-cash"));
 
   if (betMatch) {
+    // Only reward the amount that matches the winning item
     const winAmount = betMatch.value * 2;
+
     playerCash += winAmount;
-    botCash -= winAmount;
+    botCash -= winAmount; // Subtract just what the player wins
 
     console.log("Player wins!");
-    winSequence.play()
+    winSequence.play();
 
-    winSequence.addEventListener('ended',() => {
-        slotMachinePayout.play()
-      
-    })
-    if(winAmount >= 120 || winAmount >= 160){
-      smallGroupCheerSound.play()
+    winSequence.addEventListener("ended", () => {
+      slotMachinePayout.play();
+    });
+
+    if (winAmount >= 120 || winAmount >= 160) {
+      smallGroupCheerSound.play();
     }
   } else {
-    // Total amount player lost (sum of all bet values)
+    // Total loss from all bets placed
     const totalLoss = getPlayerBets.reduce((acc, bet) => acc + bet.value, 0);
     botCash += totalLoss;
-    humanPainSound.play()
+    humanPainSound.play();
     setTimeout(() => {
-      lostSequence.play()
-    },400)
-   
-  
+      lostSequence.play();
+    }, 400);
+
     console.log("Player lost!");
   }
 
@@ -232,27 +257,41 @@ function checkWin(itemId) {
 }
 
 
+function resetCash() {
+  localStorage.setItem("cash", "100");
+  displayCash();
+  location.reload();
+}
+resetCashBtn.addEventListener("click", () => {  
+  resetCash();
+}
 
-function loadSounds(){
+);
 
+
+
+
+
+function loadSounds() {
   // Casino Ambiance sounds
-  casinoAmbiance.src = "Slot-machine-sound/casino-ambiance-19130.mp3"
+  casinoAmbiance.src = "Slot-machine-sound/casino-ambiance-19130.mp3";
   // Play win sequence
-  winSequence.src = "Slot-machine-sound/you-win-sequence-2-183949.mp3"
-  slotMachinePayout.src="Slot-machine-sound/slot-machine-coin-payout-1-188227.mp3"
-  
-  // Play lost sequence 
-  lostSequence.src = "Slot-machine-sound/playful-casino-slot-machine-bonus-2-183919.mp3"
-  humanPainSound.src = "Slot-machine-sound/mixkit-human-fighter-pain-scream-2768.wav"
-  
-  smallGroupCheerSound.src = "Slot-machine-sound/mixkit-small-group-cheer-and-applause-518.wav"
-  
-  // When placing bets
-  coinDonationSoud.src = "Slot-machine-sound/coin-donation-2-180438.mp3"
-  
-    gamblingSound.src = "Slot-machine-sound/slot-machine-reels-sound-30276.mp3"
-    gamblingSound.currentTime = 3
-    
-    resultSound.src = "Slot-machine-sound/playful-casino-slot-machine-bonus-2-183919.mp3"
-  }
-  
+  winSequence.src = "Slot-machine-sound/you-win-sequence-2-183949.mp3";
+  slotMachinePayout.src =
+    "Slot-machine-sound/slot-machine-coin-payout-1-188227.mp3";
+
+  // Play lost sequence
+  lostSequence.src =
+    "Slot-machine-sound/playful-casino-slot-machine-bonus-2-183919.mp3";
+  humanPainSound.src =
+    "Slot-machine-sound/mixkit-human-fighter-pain-scream-2768.wav";
+
+  smallGroupCheerSound.src =
+    "Slot-machine-sound/mixkit-small-group-cheer-and-applause-518.wav";
+
+  gamblingSound.src = "Slot-machine-sound/slot-machine-reels-sound-30276.mp3";
+  gamblingSound.currentTime = 3;
+
+  resultSound.src =
+    "Slot-machine-sound/playful-casino-slot-machine-bonus-2-183919.mp3";
+}

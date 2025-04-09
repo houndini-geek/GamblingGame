@@ -1,60 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-   <!-- Meta tags for SEO and social media -->
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Casino Slot Machine Game</title>
+  <head>
+    <!-- Meta tags for SEO and social media -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Casino Slot Machine Game</title>
 
-<!-- SEO Meta Tags -->
-<meta name="description" content="Experience the thrill of a casino slot machine game with exciting sound effects, vibrant animations, and a chance to win big!">
-<meta name="keywords" content="casino, slot machine, gambling, game, slot game, win, fun, interactive">
-<meta name="author" content="Your Name">
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="Experience the thrill of a casino slot machine game with exciting sound effects, vibrant animations, and a chance to win big!"
+    />
+    <meta
+      name="keywords"
+      content="casino, slot machine, gambling, game, slot game, win, fun, interactive"
+    />
+    <meta name="author" content="Your Name" />
 
-<!-- Open Graph Meta Tags for social media -->
-<meta property="og:title" content="Casino Slot Machine Game">
-<meta property="og:description" content="Experience the thrill of a casino slot machine game with exciting sound effects, vibrant animations, and a chance to win big!">
-<meta property="og:image" content="URL_TO_YOUR_IMAGE.jpg"> <!-- Replace with your image URL -->
-<meta property="og:url" content="https://gamblinggame.netlify.app/"> <!-- Replace with your website URL -->
-<meta property="og:type" content="website">
+    <!-- Open Graph Meta Tags for social media -->
+    <meta property="og:title" content="Casino Slot Machine Game" />
+    <meta
+      property="og:description"
+      content="Experience the thrill of a casino slot machine game with exciting sound effects, vibrant animations, and a chance to win big!"
+    />
+    <meta property="og:image" content="URL_TO_YOUR_IMAGE.jpg" />
+    <!-- Replace with your image URL -->
+    <meta property="og:url" content="https://gamblinggame.netlify.app/" />
+    <!-- Replace with your website URL -->
+    <meta property="og:type" content="website" />
 
-<!-- Twitter Meta Tags -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Casino Slot Machine Game">
-<meta name="twitter:description" content="Experience the thrill of a casino slot machine game with exciting sound effects, vibrant animations, and a chance to win big!">
-<meta name="twitter:image" content="URL_TO_YOUR_IMAGE.jpg"> <!-- Replace with your image URL -->
-<meta name="twitter:url" content="https://gamblinggame.netlify.app/"> <!-- Replace with your website URL -->
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Casino Slot Machine Game" />
+    <meta
+      name="twitter:description"
+      content="Experience the thrill of a casino slot machine game with exciting sound effects, vibrant animations, and a chance to win big!"
+    />
+    <meta name="twitter:image" content="URL_TO_YOUR_IMAGE.jpg" />
+    <!-- Replace with your image URL -->
+    <meta name="twitter:url" content="https://gamblinggame.netlify.app/" />
+    <!-- Replace with your website URL -->
 
-<!-- Favicon -->
-<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
 
-<!-- Apple Touch Icon -->
-<link rel="apple-touch-icon" href="apple-touch-icon.png"> <!-- Replace with your icon image -->
->
-    <link rel="stylesheet" href="style.css">
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <!-- Replace with your icon image -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css" />
     <script src="main.js" defer></script>
-   
-</head>
-<body>
-    
+  </head>
+  <body>
+    <!-- Put this in your HTML -->
+<div id="startScreen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;z-index:9999;">
+    <button id="startGameBtn" style="padding:1em 2em;font-size:1.5rem;">🎰 Start Casino Game</button>
+  </div>
+  
     <header>
-        <h1>gambling game</h1>
-        <div>
-            <span class="bot"></span>
-                   |
-            <span class="cash">
-                
-            </span>
-        </div>
+      <h1>gambling game</h1>
+      <div>
+        <span class="bot"></span>
+        |
+        <span class="cash"> </span>
+      </div>
     </header>
 
 
-    <div class="container">
-      
+    <div class="feedback-wrapper">
+        <div>
+            <h3>Not enough cash to bet.</h3>
+        </div>
     </div>
 
-
-    <button class="startGambling" disabled>start gambling...</button>
-    <button class="gamblingAgain">Gamble again</button>
-</body>
+    <div class="container"></div>
+    <div class="actionBtns">
+        <button class="gamblingAgain">Gamble again</button>
+        <button class="startGambling" disabled>start gambling...</button>
+        <button class="resetCash">reset cash</button>
+    </div>
+  
+  </body>
 </html>
